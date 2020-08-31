@@ -1,7 +1,10 @@
 <template>
     <div class="products">
         <h6 class="page__title">Products</h6>
-        <filter-bar></filter-bar>
+        <div class="filter__bar">
+            <sort-Products v-model="sortBy" class="w-100"></sort-Products>
+            <filter-Products class="w-100" v-for="product in products" :key="product.id">{{ product.category}}</filter-Products>
+        </div>
         <div class="product__card" v-for="product in products" :key="product.id" >
             <button class="favorites__icon" @click="addToFavorite(product)">
                 <b-icon  icon="heart-fill" aria-hidden="true"></b-icon>
@@ -17,9 +20,10 @@
 
 <script>
 import product from './product.vue';
-import filterBar from '../components/filter.vue';
+import filterProducts from '../components/filter.vue';
+import sortProducts  from '../components/sort.vue';
 
-
+import sortBy from '../utilities/sort-by';
 
 import {
     state,  
@@ -29,16 +33,34 @@ import {
 export default {
 
     components: {
-        filterBar
+        filterProducts,
+        sortProducts
     },
 
     data() {
         const product = state.favorite.find(({ id }) => id === +this.productId);
         return {
-            products: state.products,
-            product
+            product,
+            sortBy: {
+                property: 'price',
+                direction: 1
+            }
         };
     },
+
+    computed: {
+
+        products() {
+            const {
+                property,
+                direction
+            } = this.sortBy;
+
+            return sortBy(state.products, property, direction);
+        }
+
+    },
+
     methods: {
         getProductRoute(product) {
             return {
@@ -56,6 +78,8 @@ export default {
         }
 
     }
+
+
 };
 </script>
 
@@ -63,7 +87,7 @@ export default {
 
 <style>
 .products {
- padding-bottom: 3.5em;
+ padding-bottom: 4.5em;
 }
 
 .page__title {
@@ -75,10 +99,14 @@ export default {
  text-align: center;
 }
 
+.filter__bar {
+    display: flex;
+}
+
 .product__card {
     background-color: white;
     line-height: 0.4em;
-    margin: 0.25em 1.2em 1.5em 1.2em;
+    margin: 0.25em 1em 1.5em 1em;
     padding-bottom: 0.4em;
     border-radius: 0.25em;
     padding-top: 0.5em;
@@ -86,6 +114,7 @@ export default {
     height: 18.5em;
     line-height: 1.5em;
 }
+
 
 .favorites__icon {
     float: right;

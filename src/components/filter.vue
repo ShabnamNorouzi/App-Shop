@@ -1,66 +1,60 @@
 <template>
-    <div class="filter row">
-        <button class="filter__box col-6">Price</button>
-        <button class="filter__box col-6" @click="checkSale(productId)">Sale</button>
+    <div class="filter">
+      <b-dropdown class="w-100" text=" Filter ">
+            <!-- <template v-for="category in selectedCategory">
+                <b-dropdown-item @click="selectedCategory(category)" :key="category">{{ category }}</b-dropdown-item>
+                <b-dropdown-item @click="selectedCategory(category)" :key="category">{{ category }}</b-dropdown-item>
+            </template> -->
+        </b-dropdown>      
     </div>
 </template>
 
 
-
-
 <script>
 
+
 export default {
+
+    // props: {
+
+    //     value: Object
+
+    // },
+    // data() {
+    //     return {
+    //         selectedCategory: [
+    //             'category'
+    //         ]
+    //     };
+    // },
+
+    // computed: {
+    //     selectedCategory: function() {
+	// 		const category = this.selectedCategory;
+			
+	// 		if(category === "normal") {
+	// 			return this.products;
+	// 		} else {
+	// 			return this.products.filter(function(product) {
+	// 				return product.category === category ;
+	// 			});
+	// 		}
+	// 	}
+    // }
+
     
+};
 
 
-    computed: {
-
-        checkSale(productId) {
-            if (category='sale') {
-
-            return state.products.includes(product.id);
-            }
-
-        }
-        
-        // sortedPriceToLow(a, b) {
-        // if (a.value > b.value) {
-        //     return 1;
-        // }
-        // if (a.value < b.value) {
-        //     return -1;
-        // }
-        // return 0;
-        // }
-    }
-}
 </script>
+
 
 
 
 <style>
 
 .filter {
-    margin-top: 1.6em;
-    margin-bottom: 1em;
-    width: 91.5%;
-    height: 4em;
-    color: black;
-    margin-left: 1.05em !important;
-    font-weight: bold;
+    margin: 1em;
 }
-.filter__box {
-    text-align: center;
-    padding-top: 0.3em;
-    border: 4px solid black;
-    border-radius: 0.25em;
-    background: linear-gradient(202.17deg, #FF00D6 8.58%, #FF4D00 91.42%);
-}
-.filter__box:hover {
-    outline: none;
-    color: white;
-}
-
 
 </style>
